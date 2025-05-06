@@ -55,11 +55,20 @@ private int<3> C_ethnicity[15];
 private int C_experience[15];
 
 //total stats[mean, variance, range]
-private int total[3]
+private int total[3];
 
-//TODO::
-//white stats
-//NB stats
+private int results[3];
+
+
+// white swe stats
+private int w_swe[3];
+
+// NB swe stats
+private int nb_swe[3];
+
+//Black or African American swe stats
+private int aa_swe[3];
+
 
 //generate mean, variance and range of 
 void total_stats(){
@@ -68,7 +77,7 @@ void total_stats(){
 	private int varience = 0;
 	
 	//calc total min, max, and mean
-	for(int i = 0; i < 10; i++){
+	for(public int i = 0; i < 10; i++){
 		average += A_salary[i];
 		if(A_salary[i] < min)
 			min = A_salary[i];
@@ -76,7 +85,7 @@ void total_stats(){
 			max = A_salary[i];
 	}
 	
-	for(int i = 0; i < 15; i++){
+	for(i = 0; i < 15; i++){
 		average += B_salary[i];
 		if(B_salary[i] < min)
 			min = B_salary[i];
@@ -84,7 +93,7 @@ void total_stats(){
 			max = B_salary[i];
 	}
 	
-	for(int i = 0; i < 15; i++){
+	for(i = 0; i < 15; i++){
 		average += C_salary[i];
 		if(C_salary[i] < min)
 			min = C_salary[i];
@@ -94,24 +103,96 @@ void total_stats(){
 	
 	average = average / 40;
 	
-	//calc variance
-	
-	for(int i = 0; i < 10; i++){
-		variance += (A_salary - average)^2;
+	//calc varience
+	for(i = 0; i < 10; i++){
+		varience += (A_salary[i] - average) * (A_salary[i] - average);
 	}
 	
-	for(int i = 0; i < 15; i++){
-		variance += (B_salary - average)^2;
+	for(i = 0; i < 15; i++){
+		varience += (B_salary[i] - average) * (B_salary[i] - average);
 	}
 	
-	for(int i = 0; i < 15; i++){
-		variance += (C_salary - average)^2;
+	for(i = 0; i < 15; i++){
+		varience += (C_salary[i] - average)* (C_salary[i] - average);
 	}
 	
 	total[0] = average;
-	total[1] = variance / 39;
+	total[1] = varience / 39;
 	total[2] = max - min;
 }
+
+void eth_stats_swe(int e){
+	results = [0, 0, 0];
+	private int min = 99999999999999999999;
+	private int max = 0;
+	private int average = 0;
+	private int varience = 0;
+	
+	private int amount = 0;
+	
+	//calc total min, max, and mean
+	for(public int i = 0; i < 10; i++){
+		if (A_ethnicity[i] == e && A_role == 2){
+			amount += 1;
+			
+			average += A_salary[i];
+			if(A_salary[i] < min)
+				min = A_salary[i];
+			if(A_salary[i] > max)
+				max = A_salary[i];
+		}	
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(B_ethnicity == e && B_role == 2){
+			amount += 1;
+			
+			average += B_salary[i];
+			if(B_salary[i] < min)
+				min = B_salary[i];
+			if(B_salary[i] > max)
+				max = B_salary[i];
+		}	
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(C_ethnicity == e && C_role == 2){
+			amount += 1;
+			average += C_salary[i];
+			if(C_salary[i] < min)
+				min = C_salary[i];
+			if(C_salary[i] > max)
+				max = C_salary[i];
+		}
+	}
+	
+	average = average / amount;
+	
+	//calc varience
+	for(i = 0; i < 10; i++){
+		if (A_ethnicity[i] == e && A_role == 2){
+			varience += (A_salary[i] - average) * (A_salary[i] - average);
+		}
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(B_ethnicity == e && B_role == 2){
+			varience += (B_salary[i] - average) * (B_salary[i] - average);
+		}
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(C_ethnicity == e && C_role == 2){
+			varience += (C_salary[i] - average)* (C_salary[i] - average);
+		}
+	}
+	
+	resutls[0] = average;
+	results[1] = varience / (amount - 1);
+	results[2] = max - min;
+}
+
+
 
 public int main(){
 	//a input
@@ -137,6 +218,18 @@ public int main(){
 	smcinput(C_experience, 1, 15);
 	
 	total_stats();
+	
+	eth_stats_swe(0);
+	w_swe[0] = results[0];
+	w_swe[1] = results[1];
+	w_swe[2] = results[2];
+	
+	
+	eth_stats_swe(1);
+	aa_swe[0] = results[0];
+	aa_swe[1] = results[1];
+	aa_swe[2] = results[2];
+	
 	
 	smcoutput(total, 2, 3);
 
