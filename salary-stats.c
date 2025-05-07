@@ -122,8 +122,10 @@ void total_stats(){
 }
 
 void eth_stats_swe(int e){
-	results = [0, 0, 0];
-	private int min = 99999999999999999999;
+	results[0] = 0;
+	results[1] = 0;
+	results[2] = 0;
+	private int min = 999999999;
 	private int max = 0;
 	private int average = 0;
 	private int varience = 0;
@@ -132,7 +134,7 @@ void eth_stats_swe(int e){
 	
 	//calc total min, max, and mean
 	for(public int i = 0; i < 10; i++){
-		if (A_ethnicity[i] == e && A_role == 2){
+		if (A_ethnicity[i] == e && A_role[i] == 2){
 			amount += 1;
 			
 			average += A_salary[i];
@@ -144,7 +146,7 @@ void eth_stats_swe(int e){
 	}
 	
 	for(i = 0; i < 15; i++){
-		if(B_ethnicity == e && B_role == 2){
+		if(B_ethnicity[i] == e && B_role[i] == 2){
 			amount += 1;
 			
 			average += B_salary[i];
@@ -156,7 +158,7 @@ void eth_stats_swe(int e){
 	}
 	
 	for(i = 0; i < 15; i++){
-		if(C_ethnicity == e && C_role == 2){
+		if(C_ethnicity[i] == e && C_role[i] == 2){
 			amount += 1;
 			average += C_salary[i];
 			if(C_salary[i] < min)
@@ -170,26 +172,101 @@ void eth_stats_swe(int e){
 	
 	//calc varience
 	for(i = 0; i < 10; i++){
-		if (A_ethnicity[i] == e && A_role == 2){
+		if (A_ethnicity[i] == e && A_role[i] == 2){
 			varience += (A_salary[i] - average) * (A_salary[i] - average);
 		}
 	}
 	
 	for(i = 0; i < 15; i++){
-		if(B_ethnicity == e && B_role == 2){
+		if(B_ethnicity[i] == e && B_role[i] == 2){
 			varience += (B_salary[i] - average) * (B_salary[i] - average);
 		}
 	}
 	
 	for(i = 0; i < 15; i++){
-		if(C_ethnicity == e && C_role == 2){
+		if(C_ethnicity[i] == e && C_role[i] == 2){
 			varience += (C_salary[i] - average)* (C_salary[i] - average);
 		}
 	}
 	
-	resutls[0] = average;
+	results[0] = average;
 	results[1] = varience / (amount - 1);
 	results[2] = max - min;
+}
+
+void gender_stats_swe(int g){
+	results[0] = 0;
+	results[1] = 0;
+	results[2] = 0;
+	private int min = 999999999;
+	private int max = 0;
+	private int average = 0;
+	private int varience = 0;
+	
+	private int amount = 0;
+	
+	//calc total min, max, and mean
+	for(public int i = 0; i < 10; i++){
+		if (A_gender[i] == g && A_role[i] == 2){
+			amount += 1;
+			
+			average += A_salary[i];
+			if(A_salary[i] < min)
+				min = A_salary[i];
+			if(A_salary[i] > max)
+				max = A_salary[i];
+		}	
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(B_gender[i] == g && B_role[i] == 2){
+			amount += 1;
+			
+			average += B_salary[i];
+			if(B_salary[i] < min)
+				min = B_salary[i];
+			if(B_salary[i] > max)
+				max = B_salary[i];
+		}	
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(C_gender[i] == g && C_role[i] == 2){
+			amount += 1;
+			average += C_salary[i];
+			if(C_salary[i] < min)
+				min = C_salary[i];
+			if(C_salary[i] > max)
+				max = C_salary[i];
+		}
+	}
+	
+	average = average / amount;
+	
+	//calc varience
+	for(i = 0; i < 10; i++){
+		if (A_gender[i] == g && A_role[i] == 2){
+			varience += (A_salary[i] - average) * (A_salary[i] - average);
+		}
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(B_gender[i] == g && B_role[i] == 2){
+			varience += (B_salary[i] - average) * (B_salary[i] - average);
+		}
+	}
+	
+	for(i = 0; i < 15; i++){
+		if(C_gender[i] == g && C_role[i] == 2){
+			varience += (C_salary[i] - average)* (C_salary[i] - average);
+		}
+	}
+	
+	results[0] = average;
+	results[1] = varience / (amount - 1);
+	results[2] = max - min;
+
+	
 }
 
 
@@ -219,20 +296,30 @@ public int main(){
 	
 	total_stats();
 	
-	eth_stats_swe(0);
+	private int eth = 0;
+	eth_stats_swe(eth);
 	w_swe[0] = results[0];
 	w_swe[1] = results[1];
 	w_swe[2] = results[2];
 	
-	
-	eth_stats_swe(1);
+	eth = 1;
+	eth_stats_swe(eth);
 	aa_swe[0] = results[0];
 	aa_swe[1] = results[1];
 	aa_swe[2] = results[2];
 	
+	private int g = 2;
+	gender_stats_swe(g);
+	nb_swe[0] = results[0];
+	nb_swe[1] = results[1];
+	nb_swe[2] = results[2];
+	
 	
 	smcoutput(total, 2, 3);
+	smcoutput(w_swe, 2, 3);
+	smcoutput(aa_swe, 2, 3);
+	smcoutput(nb_swe, 2, 3);
+	
 
 	return 0;
 }
-
