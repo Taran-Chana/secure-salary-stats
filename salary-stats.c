@@ -54,7 +54,7 @@ private int<2> C_gender[15];
 private int<3> C_ethnicity[15];
 private int C_experience[15];
 
-//total stats[mean, variance, range]
+//total stats[mean, variance, range, number]
 private int<64> total[4];
 
 // white swe stats
@@ -71,7 +71,8 @@ private int swe[4];
 
 //generate mean, variance and range of 
 void total_stats(){
-	private int<64> min, max = A_salary[0];
+	private int<64> min = A_salary[0];
+	private int<64> max = A_salary[0];
 	private int<64> average = 0;
 	private int<64> varience = 0;
 	private int amount = 0;
@@ -140,9 +141,10 @@ void w_stats_swe(){
 	
 	//calc total min, max, and mean
 	for(public int i = 0; i < 10; i++){
-		if (A_ethnicity[i] == e && A_role[i] == 2){
+		if (A_ethnicity[i] == e && A_role == 2){
 			if(unset == 0){
-				min, max = A_salary[i];
+				min = A_salary[i];
+				max = A_salary[i];
 				unset = 1;
 			}
 			
@@ -159,7 +161,8 @@ void w_stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(B_ethnicity[i] == e && B_role[i] == 2){
 			if(unset == 0){
-				min, max = B_salary[i];
+				min = B_salary[i];
+				max = B_salary[i];
 				unset = 1;
 			}
 			
@@ -176,7 +179,8 @@ void w_stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(C_ethnicity[i] == e && C_role[i] == 2){
 			if(unset == 0){
-				min, max = C_salary[i];
+				min = C_salary[i];
+				max = C_salary[i];
 				unset = 1;
 			}
 			amount = amount + 1;
@@ -230,7 +234,8 @@ void aa_stats_swe(){
 	for(public int i = 0; i < 10; i++){
 		if (A_ethnicity[i] == e && A_role[i] == 2){
 			if(unset == 0){
-				min, max = A_salary[i];
+				min = A_salary[i];
+				max = A_salary[i];
 				unset = 1;
 			}
 			
@@ -247,7 +252,8 @@ void aa_stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(B_ethnicity[i] == e && B_role[i] == 2){
 			if(unset == 0){
-				min, max = B_salary[i];
+				min  = B_salary[i];
+				max = B_salary[i];
 				unset = 1;
 			}
 			
@@ -264,7 +270,8 @@ void aa_stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(C_ethnicity[i] == e && C_role[i] == 2){
 			if(unset == 0){
-				min, max = C_salary[i];
+				min = C_salary[i];
+				max = C_salary[i];
 				unset = 1;
 			}
 			amount = amount + 1;
@@ -318,7 +325,8 @@ void nb_stats_swe(){
 	for(public int i = 0; i < 10; i++){
 		if (A_gender[i] == g && A_role[i] == 2){
 			if(unset == 0){
-				min, max = A_salary[i];
+				min = A_salary[i]; 
+				max = A_salary[i];
 				unset = 1;
 			}
 
@@ -335,7 +343,8 @@ void nb_stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(B_gender[i] == g && B_role[i] == 2){
 			if(unset == 0){
-				min, max = B_salary[i];
+				min = B_salary[i];
+				max = B_salary[i];
 				unset = 1;
 			}
 
@@ -352,7 +361,8 @@ void nb_stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(C_gender[i] == g && C_role[i] == 2){
 			if(unset == 0){
-				min, max = C_salary[i];
+				min = C_salary[i];
+				max = C_salary[i];
 				unset = 1;
 			}
 
@@ -404,7 +414,8 @@ void stats_swe(){
 	for(public int i = 0; i < 10; i++){
 		if (A_role[i] == 2){
 			if(unset == 0){
-				min, max = A_salary[i];
+				min = A_salary[i];
+				max = A_salary[i];
 				unset = 1;
 			}
 
@@ -421,7 +432,8 @@ void stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(B_role[i] == 2){
 			if(unset == 0){
-				min, max = B_salary[i];
+				min = B_salary[i];
+				max = B_salary[i];
 				unset = 1;
 			}
 
@@ -438,7 +450,8 @@ void stats_swe(){
 	for(i = 0; i < 15; i++){
 		if(C_role[i] == 2){
 			if(unset == 0){
-				min, max = C_salary[i];
+				min = C_salary[i];
+				max = C_salary[i];
 				unset = 1;
 			}
 
@@ -718,5 +731,12 @@ void gender_stats_swe(private int g){
 	}
 	
 }
+
+
+
+
+
+
+
 
 */
